@@ -11,6 +11,7 @@ const  App = () => {
   const [previousChats , setPreviousChats] = useState([])
   const [currentTitle, setCurrentTitle] = useState(null)
 
+    // Function to create a new chat
   const createNewChat = () =>{
     setMessage(null)
     setValue("")
@@ -25,6 +26,7 @@ const  App = () => {
 
   }
 
+    // Function to fetch messages from the server
 const getMessages = async () =>{
 const options = {
   method : "POST",
@@ -51,7 +53,7 @@ const options = {
 }
 
 // console.log(message)
-
+  // useEffect to update previous chats when there is a new message or title
 useEffect(() =>{
 // console.log(currentTitle , value , message) // Actual title
 
@@ -78,10 +80,13 @@ if(currentTitle && value && message){
 
 console.log(previousChats)
 
+  // Filtering current chat based on the current title
 const currentChat = previousChats.filter(previousChat => previousChat.title === currentTitle)
 
 const uniqueTitles = Array.from(new Set(previousChats.map(previousChat => previousChat.title)))
 console.log(uniqueTitles , "unoqueTitles")
+
+  // Rendering the component
 
   return (
     <div className="App">
@@ -93,8 +98,7 @@ console.log(uniqueTitles , "unoqueTitles")
        {uniqueTitles?.map((uniqueTitle , index) => 
           <li key={index} onClick={ () => handleClick (uniqueTitle)}>{uniqueTitle}</li>
        )}
-     
-     
+    
       </ul>
       <nav>Ask Your AI Buddy!</nav>
     </section>
@@ -106,7 +110,7 @@ console.log(uniqueTitles , "unoqueTitles")
       <li key ={index}>  
       <p className="role"><i><b>{chatMessage.role}</b></i></p>
       <p>{chatMessage.content}</p>
-        
+   
 
   </li>)}
     </ul>

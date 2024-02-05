@@ -5,11 +5,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// const API_KEY = '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'
+// OpenAI API key for authentication
 const API_KEY = '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';
 
+// Express route for handling POST requests to '/completions'
 app.post('/completions', async (req, res) => {
 
+      // Options for the fetch request to the OpenAI API
   const options = {
     method: "POST",
     headers: {
@@ -24,6 +26,7 @@ app.post('/completions', async (req, res) => {
   };
 
   try {
+        // Make a fetch request to the OpenAI API
     const response = await fetch('https://api.openai.com/v1/chat/completions', options);
     const data = await response.json();
 
@@ -44,5 +47,6 @@ app.post('/completions', async (req, res) => {
     res.status(500).send({ error: 'Internal Server Error' });
   }
 });
+// Start the Express server and listen on the specified port
 
 app.listen(PORT, () => console.log("Server is running on PORT " + PORT));
